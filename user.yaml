@@ -1,0 +1,38 @@
+apiVersion: keycloak.org/v1alpha1
+kind: KeycloakUser
+metadata:
+  namespace: redhat-rhmi-rhsso
+  name: testuser
+  finalizers:
+    - user.cleanup
+  labels:
+    sso: master
+spec:
+  realmSelector:
+    matchLabels:
+      sso: master
+  user:
+    clientRoles:
+      account:
+        - manage-account
+        - view-profile
+      master-realm:
+        - view-clients
+        - view-realm
+        - manage-users
+    emailVerified: true
+    enabled: true
+    federatedIdentities:
+      - identityProvider: openshift-v4
+        userId: 9625751e-c292-4b34-add9-3d6bcbbdc5ed
+        userName: testuser
+    groups:
+      - dedicated-admins
+      - dedicated-admins/realm-managers
+    id: c22c3370-24a6-42b4-86c3-b86924e8e4ac
+    realmRoles:
+      - offline_access
+      - uma_authorization
+      - create-realm
+    username: testuser
+    email: bgallagh@redhat.com
